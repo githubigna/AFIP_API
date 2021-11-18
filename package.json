@@ -1,0 +1,52 @@
+{
+  "name": "apeiron.billing.api",
+  "version": "0.0.1",
+  "description": "API",
+  "main": "index.js",
+  "dependencies": {
+    "@afipsdk/afip.js": "^0.7.1",
+    "awesome-qr": "^2.1.5-rc.0",
+    "blob-stream": "^0.1.3",
+    "body-parser": "^1.19.0",
+    "capitalize": "^2.0.4",
+    "cron": "^1.8.2",
+    "current-git-branch": "^1.1.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "group-array": "^1.0.0",
+    "js-sha256": "^0.9.0",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.34",
+    "mongoose": "^5.13.13",
+    "mongoose-transactions": "^1.1.4",
+    "node-fetch": "^2.6.6",
+    "pdf-creator-node": "^2.2.4",
+    "pdfkit": "^0.13.0",
+    "pdfmake": "^0.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "html-loader": "^2.1.2",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "engine": {
+    "node": "15.9.x"
+  },
+  "keywords": [
+    "AFIP",
+    "BILLING",
+    "APEIRON"
+  ],
+  "author": "Ignacio Gárate",
+  "contributors": [
+    "https://github.com/githubigna",
+    "Gárate Ignacio"
+  ],
+  "license": "MIT"
+}
