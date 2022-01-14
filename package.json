@@ -6,6 +6,7 @@
   "dependencies": {
     "@afipsdk/afip.js": "^0.7.1",
     "awesome-qr": "^2.1.5-rc.0",
+    "base64-img": "^1.0.4",
     "blob-stream": "^0.1.3",
     "body-parser": "^1.19.0",
     "capitalize": "^2.0.4",

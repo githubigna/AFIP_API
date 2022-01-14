@@ -1,8 +1,9 @@
 const express = require("express");
 const methodOverride = require("method-override");
 const afip = require("../src/js/service/afip");
+const dotenv = require("dotenv")
 
-
+dotenv.config()
 // INITIALIZATION
 
 const app = express();

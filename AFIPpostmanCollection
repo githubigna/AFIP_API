@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "3e5653ce-f08c-4e12-b4e8-d107fdef3aaa",
+		"name": "AFIP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Factura AFIP",
+			"protocolProfileBehavior": {
+				"strictSSL": false,
+				"disableUrlEncoding": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"data\":{\r\n  \"PtoVta\" \t\t\t\t\t: 1, \r\n\t\"DocTipo\"\t\t\t\t\t: 80,\r\n\t\"DocNro\"\t\t\t\t\t: 20002307554,\r\n\t\"ImpTotal\"\t\t\t\t: 121,\r\n\t\"ImpNeto\"\t\t\t\t\t: 100,\r\n\t\"ImpIVA\"\t\t\t\t\t: 21,\r\n\t\"FchServDesde\"\t\t\t: 20211011,\r\n\t\"FchServHasta\"\t\t\t: 20211111,\r\n    \"FchVtoPago\" \t: 20221112,\r\n\t\"MonId\" \t\t\t\t\t: \"PES\", \r\n    \"MonCotiz\"\t\t\t\t: 1, \r\n\t\"Iva\" : [{\r\n\t\t\"Id\"\t\t\t\t\t: 5,\r\n\t\t\"BaseImp\"\t\t\t\t: 100,\r\n\t\t\"Importe\"\t\t\t\t: 21 \r\n\t}]  \r\n},\r\n\t\"app\":\"flowy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/afip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"afip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Last Factura",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\":\"federicoes gay\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/stripe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"stripe"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

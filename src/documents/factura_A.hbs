@@ -10,7 +10,7 @@
     <center><table border="1" cellspacing="0" cellpadding="6" width="652">
         <tbody><tr><td width="42%" valign="TOP" height="36">
             <font face="Verdana" size="2" ><b align="CENTER" >Appeiron Global Solutions S.A </b></font>
-            <p align="CENTER"><img src='Image1.png' width="70" height="70"></p>
+            <p align="CENTER">{{#if img1}}<img src="{{{img1}}}" width="50%" height="50%"/>{{/if}}</p>
             <td width="11%" valign="TOP" colspan="2" height="36">
                 <b><font face="Verdana" size="4"></font></b><font face="Verdana" size="4"></font><p align="CENTER"><font face="Verdana" size="4"><b>{{Resultado}} <br/><p align="CENTER">Cod. 01</p><p style="background-color: rgb(212, 212, 212);"  align="CENTER">ORIGINAL</p></b></font></p></td>
                 <td width="47%" valign="TOP" height="36">
@@ -64,7 +64,11 @@
                         <font face="Courier (W1)" size="2"></font><p><font face="Courier (W1)" size="2"> RECIBI(MOS):</font></p></td>
                     </tr>
                     <tr><td valign="TOP" colspan="4" height="70">
-                        <font size="2"></font><p><font size="2"><img src='hola.jpeg' width="75" height="75" alt="QR"></font><font face="Courier (W1)" size="2" >C.A.E. N° {{CodAutorizacion}}</font></p><font face="Courier (W1)" size="2">
+                        <font size="2"></font><p><font size="2">
+                            {{#if img2}}
+                            <img src="{{{img2}}}" width="150" height="150" alt="QR"/>
+                            {{/if}}
+                            </font><font face="Courier (W1)" size="2" >C.A.E. N° {{CodAutorizacion}}</font></p><font face="Courier (W1)" size="2">
                             <p>FECHA DE VENCIMIENTO: {{FchVto}} </p>
                             <p>N° REGISTRO CONTROLADOR FISCAL </p>
                             <b>{{Observaciones}}</b>

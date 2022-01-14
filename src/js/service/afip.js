@@ -2,64 +2,65 @@ const Afip = require('@afipsdk/afip.js');
 const e = require('express');
 const pdf = require('pdf-creator-node');
 const fs = require('fs');
+const base64 = require("base64-img")
 const date = new Date(Date.now() - ((new Date()).getTimezoneOffset() * 60000)).toISOString().split('T')[0];
 const moment = require("moment")
 let dataReferencia = {
-	'CantReg' 		: 1, // Cantidad de comprobantes a registrar
-	'PtoVta' 		: 1, // Punto de venta
-	'CbteTipo' 		: 6, // Tipo de comprobante (ver tipos disponibles) 
-	'Concepto' 		: 1, // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
-	'DocTipo' 		: 80, // Tipo de documento del comprador (ver tipos disponibles)
-	'DocNro' 		: 20111111112, // Numero de documento del comprador
-	'CbteDesde' 	: 1, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno
-	'CbteHasta' 	: 1, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno
-	'CbteFch' 		: parseInt(date.replace(/-/g, '')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
-	'ImpTotal' 		: 184.05, // Importe total del comprobante
-	'ImpTotConc' 	: 0, // Importe neto no gravado
-	'ImpNeto' 		: 150, // Importe neto gravado
-	'ImpOpEx' 		: 0, // Importe exento de IVA
-	'ImpIVA' 		: 26.25, //Importe total de IVA
-	'ImpTrib' 		: 7.8, //Importe total de tributos
-	'FchServDesde' 	: null, // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-	'FchServHasta' 	: null, // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-	'FchVtoPago' 	: null, // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-	'MonId' 		: 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
-	'MonCotiz' 		: 1, // Cotización de la moneda usada (1 para pesos argentinos)  
-	'CbtesAsoc' 	: [ // (Opcional) Comprobantes asociados
-			{
-			'Tipo' 		: 6, // Tipo de comprobante (ver tipos disponibles) 
-			'PtoVta' 	: 1, // Punto de venta
-			'Nro' 		: 1, // Numero de comprobante
-			'Cuit' 		: 20111111112 // (Opcional) Cuit del emisor del comprobante
-			}
-		],
-	'Tributos' 		: [ // (Opcional) Tributos asociados al comprobante
+	'CantReg': 1, // Cantidad de comprobantes a registrar
+	'PtoVta': 1, // Punto de venta
+	'CbteTipo': 6, // Tipo de comprobante (ver tipos disponibles) 
+	'Concepto': 1, // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
+	'DocTipo': 80, // Tipo de documento del comprador (ver tipos disponibles)
+	'DocNro': 20111111112, // Numero de documento del comprador
+	'CbteDesde': 1, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno
+	'CbteHasta': 1, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno
+	'CbteFch': parseInt(date.replace(/-/g, '')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
+	'ImpTotal': 184.05, // Importe total del comprobante
+	'ImpTotConc': 0, // Importe neto no gravado
+	'ImpNeto': 150, // Importe neto gravado
+	'ImpOpEx': 0, // Importe exento de IVA
+	'ImpIVA': 26.25, //Importe total de IVA
+	'ImpTrib': 7.8, //Importe total de tributos
+	'FchServDesde': null, // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+	'FchServHasta': null, // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+	'FchVtoPago': null, // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+	'MonId': 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
+	'MonCotiz': 1, // Cotización de la moneda usada (1 para pesos argentinos)  
+	'CbtesAsoc': [ // (Opcional) Comprobantes asociados
 		{
-			'Id' 		:  99, // Id del tipo de tributo (ver tipos disponibles) 
-			'Desc' 		: 'Ingresos Brutos', // (Opcional) Descripcion
-			'BaseImp' 	: 150, // Base imponible para el tributo
-			'Alic' 		: 5.2, // Alícuota
-			'Importe' 	: 7.8 // Importe del tributo
+			'Tipo': 6, // Tipo de comprobante (ver tipos disponibles) 
+			'PtoVta': 1, // Punto de venta
+			'Nro': 1, // Numero de comprobante
+			'Cuit': 20111111112 // (Opcional) Cuit del emisor del comprobante
 		}
-	], 
-	'Iva' 			: [ // (Opcional) Alícuotas asociadas al comprobante
+	],
+	'Tributos': [ // (Opcional) Tributos asociados al comprobante
 		{
-			'Id' 		: 5, // Id del tipo de IVA (ver tipos disponibles) 
-			'BaseImp' 	: 100, // Base imponible
-			'Importe' 	: 21 // Importe 
+			'Id': 99, // Id del tipo de tributo (ver tipos disponibles) 
+			'Desc': 'Ingresos Brutos', // (Opcional) Descripcion
+			'BaseImp': 150, // Base imponible para el tributo
+			'Alic': 5.2, // Alícuota
+			'Importe': 7.8 // Importe del tributo
 		}
-	], 
-	'Opcionales' 	: [ // (Opcional) Campos auxiliares
+	],
+	'Iva': [ // (Opcional) Alícuotas asociadas al comprobante
 		{
-			'Id' 		: 17, // Codigo de tipo de opcion (ver tipos disponibles) 
-			'Valor' 	: 2 // Valor 
+			'Id': 5, // Id del tipo de IVA (ver tipos disponibles) 
+			'BaseImp': 100, // Base imponible
+			'Importe': 21 // Importe 
 		}
-	], 
-	'Compradores' 	: [ // (Opcional) Detalles de los clientes del comprobante 
+	],
+	'Opcionales': [ // (Opcional) Campos auxiliares
 		{
-			'DocTipo' 		: 80, // Tipo de documento (ver tipos disponibles) 
-			'DocNro' 		: 20111111112, // Numero de documento
-			'Porcentaje' 	: 100 // Porcentaje de titularidad del comprador
+			'Id': 17, // Codigo de tipo de opcion (ver tipos disponibles) 
+			'Valor': 2 // Valor 
+		}
+	],
+	'Compradores': [ // (Opcional) Detalles de los clientes del comprobante 
+		{
+			'DocTipo': 80, // Tipo de documento (ver tipos disponibles) 
+			'DocNro': 20111111112, // Numero de documento
+			'Porcentaje': 100 // Porcentaje de titularidad del comprador
 		}
 	]
 };
@@ -201,119 +202,119 @@ const afip = new Afip({ CUIT: 20409447008 });
 /**
  * esto iria el llamado en la ruta de la API nueva.
  */
-async function create_bill_AFIP (data){
-	let info = await  get_billing_info_AFIP(data);
+async function create_bill_AFIP(data) {
+	let info = await get_billing_info_AFIP(data);
 	let voucher = await create_voucher_AFIP(info);
 	let documento = data.DocNro;
-	voucher = await get_tax_payer_details(voucher,documento);
+	voucher = await get_tax_payer_details(voucher, documento);
 	let fechaVen = afip.ElectronicBilling.formatDate(voucher.FchVto);
-	voucher.FchVto = fechaVen; 
+	voucher.FchVto = fechaVen;
 	let obs = voucher.Observaciones.Obs[0].Msg;
 	voucher.Observaciones = obs
 	//let client_data =  await afip.RegisterScopeThirteen.getTaxpayerDetails(data.DocNro)
-	
+
 	return voucher;
 }
 //-----------------------------------------------------//
-function merge_data_for_bill(voucher,client_data){
+function merge_data_for_bill(voucher, client_data) {
 	let tipo = client_data.tipoPersona
 	let tax_payer_details;
-	if(tipo ==  "JURIDICA"){
+	if (tipo == "JURIDICA") {
 		tax_payer_details = {
-			tipo_persona :client_data.tipoPersona,
-			id : client_data.idPersona,
-			id_type : client_data.tipoClave,
-			document : client_data.idActividadPrincipal,
-			forma_juridica : client_data.formaJuridica,
-			razonSocial : client_data.razonSocial,
-			activity : client_data.descripcionActividadPrincipal,
-			adres_info :{
-				adress : client_data.domicilio[0].direccion,
-				postal_code : client_data.domicilio[0].codigoPostal,
-				province : client_data.domicilio[0].descripcionProvincia,
-				adress_type : client_data.domicilio[0].tipoDomicilio
+			tipo_persona: client_data.tipoPersona,
+			id: client_data.idPersona,
+			id_type: client_data.tipoClave,
+			document: client_data.idActividadPrincipal,
+			forma_juridica: client_data.formaJuridica,
+			razonSocial: client_data.razonSocial,
+			activity: client_data.descripcionActividadPrincipal,
+			adres_info: {
+				adress: client_data.domicilio[0].direccion,
+				postal_code: client_data.domicilio[0].codigoPostal,
+				province: client_data.domicilio[0].descripcionProvincia,
+				adress_type: client_data.domicilio[0].tipoDomicilio
 			},
 		}
-	} else if(tipo ==  "FISICA"){
+	} else if (tipo == "FISICA") {
 		let razonSocial = client_data.nombre + " " + client_data.apellido
 		tax_payer_details = {
-			tipo_persona :client_data.tipoPersona,
-			id : client_data.idPersona,
-			id_type : client_data.tipoClave,
-			document : client_data.numeroDocumento,
-			forma_juridica : client_data.tipoDocumento,
-			razonSocial : razonSocial ,
-			activity : client_data.descripcionActividadPrincipal,
-			adres_info :{
-				adress : client_data.domicilio[0].direccion,
-				postal_code : client_data.domicilio[0].codigoPostal,
-				province : client_data.domicilio[0].descripcionProvincia,
-				adress_type : client_data.domicilio[0].tipoDomicilio
+			tipo_persona: client_data.tipoPersona,
+			id: client_data.idPersona,
+			id_type: client_data.tipoClave,
+			document: client_data.numeroDocumento,
+			forma_juridica: client_data.tipoDocumento,
+			razonSocial: razonSocial,
+			activity: client_data.descripcionActividadPrincipal,
+			adres_info: {
+				adress: client_data.domicilio[0].direccion,
+				postal_code: client_data.domicilio[0].codigoPostal,
+				province: client_data.domicilio[0].descripcionProvincia,
+				adress_type: client_data.domicilio[0].tipoDomicilio
 			},
 		}
 	}
-voucher["tax_payer_details"] = tax_payer_details
-return voucher;
+	voucher["tax_payer_details"] = tax_payer_details
+	return voucher;
 }
 //-----------------------------------------------------//
-async function get_CUIT_from_DNI (dni){
-	let res = await afip.RegisterScopeThirteen.getTaxIDByDocument(dni);	
+async function get_CUIT_from_DNI(dni) {
+	let res = await afip.RegisterScopeThirteen.getTaxIDByDocument(dni);
 }
 //-----------------------------------------------------//
 
-async function get_billing_info_AFIP(client_data){
+async function get_billing_info_AFIP(client_data) {
 	let info = {
-	PtoVta 					: client_data.PtoVta, 
-	DocTipo					: client_data.DocTipo, // PUNTO (1) -------------->
-	DocNro					: client_data.DocNro,
-	ImpTotal				: client_data.ImpTotal,
-	ImpNeto					: client_data.ImpNeto,
-	ImpIVA					: client_data.ImpIVA,
-	FchServDesde			: client_data.FchServDesde,
-	FchServHasta			: client_data.FchServHasta,
-	FchVtoPago 				: client_data.FchVtoPago,
-	MonId 					: client_data.MonId, //PUNTO (2) ---------->
-	MonCotiz				: client_data.MonCotiz, //COTIZACION DE LA MONEDA PUESTA PES - 1
-	Iva : [{
-		Id					: client_data.Iva[0].Id, // PUNTO (3) ---------->
-		BaseImp				: client_data.Iva[0].BaseImp, // MONTO TOTAL (BRUTO);
-		Importe				: client_data.Iva[0].Importe // 21% DEL TOTAL (IVA COBRADO);
-	}]
-}
-return info;
+		PtoVta: client_data.PtoVta,
+		DocTipo: client_data.DocTipo, // PUNTO (1) -------------->
+		DocNro: client_data.DocNro,
+		ImpTotal: client_data.ImpTotal,
+		ImpNeto: client_data.ImpNeto,
+		ImpIVA: client_data.ImpIVA,
+		FchServDesde: client_data.FchServDesde,
+		FchServHasta: client_data.FchServHasta,
+		FchVtoPago: client_data.FchVtoPago,
+		MonId: client_data.MonId, //PUNTO (2) ---------->
+		MonCotiz: client_data.MonCotiz, //COTIZACION DE LA MONEDA PUESTA PES - 1
+		Iva: [{
+			Id: client_data.Iva[0].Id, // PUNTO (3) ---------->
+			BaseImp: client_data.Iva[0].BaseImp, // MONTO TOTAL (BRUTO);
+			Importe: client_data.Iva[0].Importe // 21% DEL TOTAL (IVA COBRADO);
+		}]
+	}
+	return info;
 }
 
-async function create_voucher_AFIP(info){
-	const lastVoucher = await afip.ElectronicBilling.getLastVoucher(1,1);
+async function create_voucher_AFIP(info) {
+	const lastVoucher = await afip.ElectronicBilling.getLastVoucher(1, 1);
 	let cbteNumero = lastVoucher + 1;
 	let data = {
-		'CantReg' 		: 1, // Cantidad de comprobantes a registrar TODO
-		'PtoVta' 		: info.PtoVta, // Punto de venta// DEL PROCESO
-		'CbteTipo' 		: 1, // Tipo de comprobante (ver tipos disponibles) 
-		'Concepto' 		: 2, // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios TODO
-		'DocTipo' 		: info.DocTipo, // Tipo de documento del comprador (ver tipos disponibles)
-		'DocNro' 		: info.DocNro, // Numero de documento del comprador
-		'CbteDesde' 	: cbteNumero, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno TODO
-		'CbteHasta' 	: cbteNumero, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno TODO
-		'CbteFch' 		: parseInt(date.replace(/-/g, '')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
-		'ImpTotal' 		: info.ImpTotal, // Importe total del comprobante
-		'ImpTotConc' 	: 0, // Importe neto no gravado TODO 
-		'ImpNeto' 		: info.ImpNeto, // Importe neto gravado
-		'ImpOpEx' 		: 0, // Importe exento de IVA TODO
-		'ImpIVA' 		: info.ImpIVA, //Importe total de IVA
-		'ImpTrib' 		: 0, //Importe total de tributos TODO 
-		'FchServDesde' 	: info.FchServDesde, // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-		'FchServHasta' 	: info.FchServHasta, // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-		'FchVtoPago' 	: info.FchVtoPago, // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-		'MonId' 		: `${info.MonId}`, //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
-		'MonCotiz' 		: info.MonCotiz, // Cotización de la moneda usada (1 para pesos argentinos)
+		'CantReg': 1, // Cantidad de comprobantes a registrar TODO
+		'PtoVta': info.PtoVta, // Punto de venta// DEL PROCESO
+		'CbteTipo': 1, // Tipo de comprobante (ver tipos disponibles) 
+		'Concepto': 2, // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios TODO
+		'DocTipo': info.DocTipo, // Tipo de documento del comprador (ver tipos disponibles)
+		'DocNro': info.DocNro, // Numero de documento del comprador
+		'CbteDesde': cbteNumero, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno TODO
+		'CbteHasta': cbteNumero, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno TODO
+		'CbteFch': parseInt(date.replace(/-/g, '')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
+		'ImpTotal': info.ImpTotal, // Importe total del comprobante
+		'ImpTotConc': 0, // Importe neto no gravado TODO 
+		'ImpNeto': info.ImpNeto, // Importe neto gravado
+		'ImpOpEx': 0, // Importe exento de IVA TODO
+		'ImpIVA': info.ImpIVA, //Importe total de IVA
+		'ImpTrib': 0, //Importe total de tributos TODO 
+		'FchServDesde': info.FchServDesde, // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+		'FchServHasta': info.FchServHasta, // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+		'FchVtoPago': info.FchVtoPago, // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+		'MonId': `${info.MonId}`, //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
+		'MonCotiz': info.MonCotiz, // Cotización de la moneda usada (1 para pesos argentinos)
 
-		'Iva' 			: [ // (Opcional) Alícuotas asociadas al comprobante
-		{
-			'Id' 		: info.Iva[0].Id, // Id del tipo de IVA (ver tipos disponibles) 
-			'BaseImp' 	: info.Iva[0].BaseImp, // Base imponible
-			'Importe' 	: info.Iva[0].Importe // Importe 
-		}
+		'Iva': [ // (Opcional) Alícuotas asociadas al comprobante
+			{
+				'Id': info.Iva[0].Id, // Id del tipo de IVA (ver tipos disponibles) 
+				'BaseImp': info.Iva[0].BaseImp, // Base imponible
+				'Importe': info.Iva[0].Importe // Importe 
+			}
 		],
 	};
 	// afip.ElectronicBilling.createVoucher(data).then(async res => {
@@ -324,71 +325,70 @@ async function create_voucher_AFIP(info){
 	await create_voucher(data);
 	let voucherInfo = await get_voucher_info(cbteNumero);
 	return voucherInfo;
-	
+
 }
-async function get_tax_payer_details(voucher,documento){
+async function get_tax_payer_details(voucher, documento) {
 	//await get_CUIT_from_DNI (documento.dni)
 	let taxpayerDetails13 = await afip.RegisterScopeThirteen.getTaxpayerDetails(documento);
 	//let taxpayerDetails4 = await afip.RegisterScopeFour.getTaxpayerDetails(documento);
-	if(taxpayerDetails13){
-		taxpayerDetails13 = merge_data_for_bill(voucher,taxpayerDetails13)
+	if (taxpayerDetails13) {
+		taxpayerDetails13 = merge_data_for_bill(voucher, taxpayerDetails13)
 	}
 	return taxpayerDetails13;
 }
-async function get_last_voucher(){
-	const lastVoucher = await afip.ElectronicBilling.getLastVoucher(1,1);
-	const voucherInfo = await afip.ElectronicBilling.getVoucherInfo(lastVoucher,1,1);
+async function get_last_voucher() {
+	const lastVoucher = await afip.ElectronicBilling.getLastVoucher(1, 1);
+	const voucherInfo = await afip.ElectronicBilling.getVoucherInfo(lastVoucher, 1, 1);
 	return voucherInfo;
 }
-async function get_server_status_AFIP(){
+async function get_server_status_AFIP() {
 	const serverStatus = await afip.ElectronicBilling.getServerStatus();
 	console.log('Este es el estado del servidor:');
 	console.log(serverStatus);
 }
-async function create_voucher(data){
+async function create_voucher(data) {
 	await afip.ElectronicBilling.createVoucher(data);
 }
-async function get_voucher_info(cbteNumero){
-	let voucherInfo = await afip.ElectronicBilling.getVoucherInfo(cbteNumero,1,1);
+async function get_voucher_info(cbteNumero) {
+	let voucherInfo = await afip.ElectronicBilling.getVoucherInfo(cbteNumero, 1, 1);
 	return voucherInfo;
 }
-async function create_PDF(info){
-	
-	info.img1 = '../../documents/hola.jpeg';
-	info.img2 = '../../documents/Image1.png';
-	
+async function create_PDF(info,app) {
+	console.log(info);
+	info.img1 = base64.base64Sync(`src/documents/${app}.png`);
+	info.img2 = base64.base64Sync(`src/Qrs/${app}${info.CbteDesde}.jpeg`);
 
-	var html = fs.readFileSync("src/documents/factura_A.html", "utf8");
-var options = {
-format: "A3",
-orientation: "portrait",
-border: "10mm",
-footer: {
-	height: "28mm",
-	contents: {
-		first: 'Cover page',
-		2: 'Second page', // Any page number is working. 1-based index
-		default: '<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
-		last: 'Last Page'
-	}
-}
-};
-var document = {
-html: html,
-data:info,
-path: "./output.pdf",
-type: "",
-};
-pdf.create(document, options)
-.then((res) => {
-console.log("PDF! ->",res);
-})
-.catch((error) => {
-console.error(error);
-});
-}
 
-function format(date){
+	var html = fs.readFileSync("src/documents/factura_A.hbs", "utf8");
+	var options = {
+		format: "A3",
+		orientation: "portrait",
+		border: "10mm",
+		footer: {
+			height: "28mm",
+			contents: {
+				first: 'Cover page',
+				2: 'Second page', // Any page number is working. 1-based index
+				default: '<span style="color: #444;">{{page}}</span>/<span>{{pages}}</span>', // fallback value
+				last: 'Last Page'
+			}
+		}
+	};
+	var document = {
+		html: html,
+		data: info,
+		path: `src/Pdfs/${app}${info.CbteDesde}.pdf`,
+		type: "",
+	};
+	pdf.create(document, options)
+		.then((res) => {
+			console.log("PDF! ->", res);
+		})
+		.catch((error) => {
+			console.error(error);
+		});
+}
+function format(date) {
 	date = afip.ElectronicBilling.formatDate(date);
 	return date
 }
