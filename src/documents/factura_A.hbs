@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <center>
+        <table border="1" cellspacing="0" cellpadding="6" width="652">
+            <tbody>
+                <tr>
+                    <td width="42%" valign="TOP" height="36">
+
+                        <font face="Verdana" size="2"><b align="CENTER">Appeiron Global Solutions S.A </b></font>
+                        <p align="CENTER">{{#if img3}}<img src="{{{img3}}}" width="30%" height="100%" />{{/if}}</p>
+                    <td width="11%" valign="TOP" colspan="2" height="36">
+                        <b>
+                            <font face="Verdana" size="4"></font>
+                        </b>
+                        <font face="Verdana" size="4"></font>
+                        <p align="CENTER">
+                            <font face="Verdana" size="4"><b>{{Resultado}} <br />
+                                    <p align="CENTER">Cod. 01</p>
+                                    <p style="background-color: rgb(212, 212, 212);" align="CENTER">ORIGINAL</p>
+                                </b></font>
+                        </p>
+                    </td>
+                    <td width="47%" valign="TOP" height="36">
+                        <font face="Courier (W1)" size="2">
+                            <p align="CENTER"> {{Resultado}}-000{{PtoVta}}-{{CbteDesde}} </p>
+
+                        </font>
+                        <p align="RIGHT">
+                            <font face="Courier (W1)" size="2"></font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="47%" valign="TOP" colspan="2">
+                        <font face="Courier (W1)" size="2">
+                            <p>San Luis 1729</p>
+                            <!--<p>San Luis 1729 </p>-->
+                            <!--<p>San Luis 1729 </p>-->
+                            <!--<p>San Luis 1729 </p>-->
+                        </font>
+                        <p>
+                            <font face="Courier (W1)" size="2"> IVA RESPONSABLE INSCRIPTO (Ver de donde conseguir
+                                exactamente este valor)</font>
+                        </p>
+                    </td>
+                    <td width="53%" valign="TOP" colspan="2">
+                        <font face="Courier (W1)" size="2">
+                            <p align="RIGHT">CUIT/CUIL: 20409447008</p>
+                            <p align="RIGHT">IIBB: 20409447008 </p>
+                        </font>
+                        <p align="RIGHT">
+                            <font face="Courier (W1)" size="2">INICIO ACTIVIDADES: 20/10/2020</font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="TOP" colspan="4" height="60">
+                        <ti>
+                            <font face="Courier (W1)" size="2">
+                                <p>INFORMACIÓN DEL CLIENTE</p>
+                                <p style=" display: flex; flex-direction: row; width: 100%;">Persona
+                                    {{tax_payer_details.tipo_persona}}</p>
+                                <p style=" display: flex; flex-direction: row; width: 100%;">
+                                    {{tax_payer_details.id_type}} : {{tax_payer_details.id}}</p>
+                                <p style="display: flex; flex-direction: row; width: 100%;">Tipo de documento:
+                                    {{tax_payer_details.forma_juridica}}</p>
+                                <p style="display: flex; flex-direction: row; width: 100%;">Razon social/Nombre Y
+                                    Apellido: {{tax_payer_details.razonSocial}}</p>
+                            </font>
+                        </ti>
+                        <ti>
+                            <font face="Courier (W1)" size="2">
+                                <p style="display: flex; flex-direction: row; width: 100%;">Actividad:
+                                    {{tax_payer_details.activity}}</p>
+                                <p style=" display: flex; flex-direction: row; width: 100%;">Direccion:
+                                    {{tax_payer_details.adres_info.adress}}</p>
+                                <p style=" display: flex; flex-direction: row; width: 100%;">
+                                    Provincia/Region:{{tax_payer_details.adres_info.province}}</p>
+                                <p style=" display: flex; flex-direction: row; width: 100%;">Tipo de domicilio:
+                                    {{tax_payer_details.adres_info.adress_type}}</p>
+                                <p style="display: flex; flex-direction: row; width: 100%;">IVA RESPONSABLE INSCRIPTO
+                                    REMITO/S Ný/Nos.</p>
+                            </font>
+                        </ti>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="TOP" colspan="4" style="background-color: rgb(211, 210, 210);">
+                        <font face="Courier (W1)" size="2">
+                            <p>1.0 Suscripción Flowy SAS - Imp. Neto{{ImpNeto}} - IVA 21% - Imp IVA {{ImpIVA}} - Imp
+                                total {{ImpTotal}} </p>
+                            <p>UNITARIO IVA IVA NETO </p>
+                            <p>(25)Subtot. (26)Alícuota (27) IVA (28) Percepciones IVA(29) Percepciones Otros
+                                (30)Conceptos No </p>
+                            <p>IVA Gravados </p>
+                        </font>
+                        <p>
+                            <font face="Courier (W1)" size="2">TOTAL {{ImpTotal}}</font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="TOP" colspan="4" height="39">
+                        <font face="Courier (W1)" size="2"></font>
+                        <p>
+                            <font face="Courier (W1)" size="2"> RECIBI(MOS):</font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="TOP" colspan="4" height="70">
+                        <font size="2"></font>
+                        <p>
+                            <font size="2">
+                                {{#if img2}}
+                                <img src="{{{img2}}}" width="150" height="150" alt="QR" />
+                                {{/if}}
+                                
+                            </font>
+                        </p>
+                        <p>
+                            {{#if img1}}
+                                <img src="{{{img1}}}" style="top:0%" width="20%" height="20%" />
+                                {{/if}}
+                        </p>
+                        <font face="Courier (W1)" size="2">
+                            <font face="Courier (W1)" size="2">C.A.E. N° {{CodAutorizacion}}</font>
+                            <p>FECHA DE VENCIMIENTO: {{FchVto}} </p>
+                            <p>N° REGISTRO CONTROLADOR FISCAL </p>
+                            <b>{{Observaciones}}</b>
+                </tr>
+            </tbody>
+        </table>
+    </center>
+</body>
+
+</html>

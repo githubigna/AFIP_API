@@ -1,0 +1,5 @@
+dispatch:
+  - url: api.apeirongs.com/stripe/*
+    service: stripe-api
+  - url: api.apeirongs.com/mailer/*
+    service: mailer-api

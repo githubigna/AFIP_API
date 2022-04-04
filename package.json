@@ -1,0 +1,94 @@
+{
+  "name": "apeiron.billing.api",
+  "version": "0.0.1",
+  "description": "API",
+  "main": "index.js",
+  "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.8",
+    "acorn": "^8.7.0",
+    "afip-sdk": "^1.1.5",
+    "awesome-qr": "^2.1.5-rc.0",
+    "base64-img": "^1.0.4",
+    "base64topdf": "^1.1.8",
+    "binary-base64": "^1.1.0",
+    "blob-stream": "^0.1.3",
+    "body-parser": "^1.19.0",
+    "capitalize": "^2.0.4",
+    "cron": "^1.8.2",
+    "current-git-branch": "^1.1.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.2",
+    "fs": "0.0.1-security",
+    "group-array": "^1.0.0",
+    "handlebars": "^4.7.7",
+    "hbs": "^4.2.0",
+    "js-sha256": "^0.9.0",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.34",
+    "mongoose": "^5.13.13",
+    "mongoose-transactions": "^1.1.4",
+    "node-fetch": "^2.6.6",
+    "node-pre-gyp": "^0.17.0",
+    "pdf-from": "^0.2.2",
+    "webpack": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "html-loader": "^2.1.2",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js --ignore 'src/cert/*'",
+    "dev-docker": "nodemon --legacy-watch src/index.js --ignore 'src/cert/*'",
+    "docker": "docker build -t afip-api  --no-cache . && docker run -p 5000:5000 -v ./src:/usr/src/app/src --name=afip-api-image afip-api",
+    "start": "node src/index.js",
+    "deploy:testing": "gcloud config set project apeironapis && gcloud app deploy app_test.yaml dispatch.yaml --version 1 --quiet",
+    "deploy:production": "gcloud config set project apeironapis && gcloud app deploy app.yaml dispatch.yaml --version 1 --quiet",
+    "build-test": "gcloud builds submit --tag gcr.io/apeironapis/afip-api-test ",
+    "build-prod": "gcloud builds submit --tag gcr.io/apeironapis/afip-api-prod ",
+    "deploy-docker:testing": "npm run build-test && gcloud run deploy afip-api-test --image gcr.io/apeironapis/afip-api-test --port=80 --platform=managed --region=us-east1 --allow-unauthenticated --set-env-vars FLAVOR=test --set-env-vars CERT_FOLDER=./cert/testing --set-env-vars DATABASE_NAME=users --set-env-vars AFIP_CUIT=20409447008",
+    "deploy-docker:production": "npm run build-prod && gcloud run deploy afip-api --image gcr.io/apeironapis/afip-api-prod --port=80 --platform=managed --region=us-east1 --allow-unauthenticated --set-env-vars FLAVOR=prod --set-env-vars CERT_FOLDER=./cert/production --set-env-vars DATABASE_NAME=production --set-env-vars AFIP_CUIT=30716964244"
+  },
+  "engine": {
+    "node": "15.9.x"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": 2500,
+    "env": {
+      "FLAVOR": "test",
+      "FLAVOR_TEST": "test",
+      "FLAVOR_PROD": "prod",
+      "CERT_FOLDER": "./cert/testing",
+      "CERT_FOLDER_TEST": "./cert/testing",
+      "CERT_FOLDER_PROD": "./cert/production",
+      "MONGO_DB": "afip1",
+      "DATABASE_NAME": "users",
+      "DATABASE_NAME_TEST": "users",
+      "DATABASE_NAME_PROD": "production",
+      "AFIP_CUIT": 20409447008,
+      "AFIP_CUIT_PROD": 30716964244,
+      "AFIP_CUIT_TEST": 20409447008,
+      "VERSION": "api/v1",
+      "MONGO_USER": "gary",
+      "MONGO_CONNECT": "vegvisir1997"
+    }
+  },
+  "keywords": [
+    "AFIP",
+    "BILLING",
+    "APEIRON"
+  ],
+  "author": "Ignacio Gárate",
+  "contributors": [
+    "https://github.com/githubigna",
+    "Gárate Ignacio"
+  ],
+  "license": "MIT"
+}

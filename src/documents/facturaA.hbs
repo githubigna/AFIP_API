@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body style="font-family: Montserrat, sans-serif">
+  <center>
+    <table border="1" cellspacing="0" cellpadding="6" width="720">
+      <tr style="
+            position: absolute;
+            margin-left: 42.5%;
+            z-index: 1;
+            margin-top: 3.80%;
+            background-color: #d5d5d5;
+          ">
+        <td valign="TOP" colspan="2" align="center">
+          <b style="text-align: center">
+            <p style="margin: 0 0 10px 0; font-size: 15px">{{Resultado}}</p>
+            <p align="CENTER" style="font-size: 10px; margin: 0">Cod. 01</p>
+          </b>
+        </td>
+      </tr>
+      <tbody>
+        <tr>
+          <td colspan="4" style="border-top:0;border-right:0;border-left:0">
+            <p style="margin: 0; font-weight: 700" align="CENTER">ORIGINAL</p>
+          </td>
+        </tr>
+
+        <tr style="
+              position: relative;
+              display: flex;
+              flex-direction: column;
+            ">
+          <td width="48%" valign="TOP" colspan="2" align="left"
+            style="margin-left: 5px;border-top:0;border-bottom:0;border-left:0">
+            <p style="margin-left: 80px;" align="LEFT">{{#if img3}}<img src="{{{img3}}}" width="30%"
+                height="40%" />{{/if}}</p>
+            <font face="Courier (W1)" size="2">
+              <p style="font-weight: 700;">
+                Razon social:
+                <span style="font-weight: 500; margin-bottom: 0" id="cuitStore">
+                  &nbsp;Appeiron Global Solutions S.A
+                </span>
+              </p>
+            </font>
+            <font face="Courier (W1)" size="2">
+              <p style="font-weight: 700">
+                Domicilio comercial:
+                <span style=" font-weight: 500;margin-bottom: 0" id="addressStore">
+                  &nbsp;San Luis 1729
+                </span>
+              </p>
+            </font>
+            <font face="Courier (W1)" size="2">
+              <p style="font-weight: 700">
+                Condición frente al IVA:
+                <span style="font-weight:500 ;margin-bottom;0" id="conditionIva">
+                  &nbsp;IVA Resposable inscripto
+                </span>
+              </p>
+            </font>
+          </td>
+          <td valign="TOP" colspan="2" style="padding-left: 440px; margin-top: -160px;border:0px" align="left">
+            <font face="Courier (W1)" size="2">
+              <h2>FACTURA</h2>
+              <font face="Courier (W1)" size="2">
+                <p style="font-weight: 700; margin: 0">Punto de venta:
+                  <span style="margin: 0">000{{PtoVta}} Comp. Nro: {{CbteDesde}}</span>
+                </p>
+
+              </font>
+              <font face="Courier (W1)" size="2">
+                <p style="
+                                  font-weight: 700;
+                                  margin: 0
+                                ">
+                  Fecha de Emisión:{{FchProceso}}
+                </p>
+              </font>
+              <div style="bottom:2px">
+                <font face="Courier (W1)" size="2">
+                  <p style="font-weight: 700;margin: 20px 0 0 0">CUIT:
+                    <span style="font-weight:500"> 30-71696424-4</span>
+                  </p>
+                </font>
+
+                <font face="Courier (W1)" size="2">
+                  <p style="font-weight: 700; margin: 0">IIBB:
+                    <span style="font-weight:500"> 30-71696424-4</spans>
+                  </p>
+                </font>
+
+                <font face="Courier (W1)" size="2">
+                  <p style="font-weight: 700; margin: 0">
+                    Fecha de Inicio de Actividades:
+                    <span style="font-weight:500"> 20/10/2020</span>
+                  </p>
+                </font>
+              </div>
+            </font>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table border="1" cellspacing="0" cellpadding="6" width="720"
+      style="border-right:0px;border-top:0px;border-bottom:0px;margin-top:-5px">
+      <tbody>
+        <tr style="font-size:10px display: flex; flex-direction: row">
+          <td style="border-right:0;border-top:0;border-bottom:0;border-left:1px">
+
+            <p style="font-size:14px;font-weight: 600; margin: 0;">
+              Periodo Facturado Desde:
+              <span style="font-size:14px;font-weight: 500" id="periodStar">
+                {{FchServDesde}}</span>
+            </p>
+          </td>
+          <td style="border-right:0;border-left:0;border-top:0;border-bottom:0">
+
+            <p style="font-size:14px;font-weight: 600; margin: 0 0 0 ;">
+              Hasta:
+              <span style="font-size:14px;font-weight: 500" id="periodEnd">
+                {{FchServHasta}}</span>
+            </p>
+          </td>
+          <td style="border-left:0;border-top:0;border-bottom:0;border-right:1">
+
+            <p style="font-size:14px;font-weight: 600; margin: 0;">
+              Fecha de Vto. para el pago:
+              <span style="font-size:14px;font-weight: 500" id="periodStar">
+                {{FchVtoPago}}</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table border="1" cellspacing="0" cellpadding="6" width="720" style="margin-top: 0px; justify-items: left">
+      <tbody>
+        <tr>
+          <td valign="TOP" colspan="4" height="60" style="border: 0;">
+            <font face="Courier (W1)" size="2" style="justify-content: left">
+              <p style="font-weight: 700; margin: 0; width: 40%">
+                {{tax_payer_details.id_type}}
+                <span style="font-weight: 500" id="cuitClient">{{tax_payer_details.id}}</span>
+              </p>
+              <p style="font-weight: 700; margin: 0">
+                Razon social:
+                <span style="font-weight: 500" id="namePersonal">
+                  {{tax_payer_details.razonSocial}}
+                </span>
+              </p>
+              <p style="font-weight: 700; margin: 0">
+                Forma jurídica:
+                <span style="font-weight: 500" id="namePersonal">
+                  {{tax_payer_details.forma_juridica}}
+                </span>
+              </p>
+            </font>
+            <font face="Courier (W1)" size="2" style="justify-content: left">
+              <p style="font-weight: 700;">
+                CONDICION :
+                {{#if conditionIva}}
+                <span style="font-weight: 500" id="adressStore">{{conditionIva}}</span>
+                {{else}}
+                <span style="font-weight: 500" id="adressStore">IVA responsable inscripto</span>
+                {{/if}}
+              </p>
+              <p style="font-weight: 700">
+                ACTIVIDAD:
+                <span style="font-weight: 500" id="adressStore">{{tax_payer_details.activity}}</span>
+              </p>
+              <p style="font-weight: 700;">
+                DOMICILIO {{tax_payer_details.adres_info.adress_type}}:
+                <span style="font-weight: 500" id="adressStore">{{tax_payer_details.adres_info.adress}} -
+                  {{tax_payer_details.adres_info.province}}</span>
+              </p>
+            </font>
+            <font face="Courier (W1)" size="2" style="justify-content: left">
+              <p style="font-weight: 700">
+                CONDICION DE VENTA:
+                <span style="font-weight: 500" id="conditionIva">Contado</span>
+              </p>
+            </font>
+          </td>
+        </tr>
+      </tbody>
+      <tr style="width:100%" valign="TOP" colspan="4" height="20" width="720">
+        <td style="text-align: center;">
+          <p style="font-size:10px;font-weight: 700; margin: 0; ">
+            CODIGO
+          </p>
+        </td>
+        <td style="text-align: center;">
+          <p style="font-size:10px;font-weight: 700; margin: 0; ">
+            NOMBRE
+          </p>
+        </td>
+        <td style="text-align: center;">
+          <p style="font-size:10px;font-weight: 700; margin: 0; ">
+            CANT.
+          </p>
+        </td>
+        <td style="text-align: center;">
+          <p style="font-size:10px; font-weight: 700; margin: 0;">
+            PR. UNI.
+          </p>
+        </td>
+        <td style="text-align: center;">
+          <p style="font-size:10px;font-weight: 700; margin: 0;">
+            BONI.
+          </p>
+        </td>
+        <td style="text-align: center;">
+          <p style="font-size:10px;font-weight: 700; margin: 0; ">
+            PRECIO TOTAL
+          </p>
+        </td>
+      </tr>
+      {{#each items as |item|}}
+      <tbody>
+        <tr style="width:100%" valign="TOP" colspan="4" height="20">
+          <td style="text-align: center;background-color:rgb(238, 238, 238);">
+            <span style="font-size:10px;font-weight: 300" id="cuitClient">{{item.codigo}}</span>
+          </td>
+          <td style="text-align: center;background-color:rgb(238, 238, 238);">
+            <span style="font-size:10px;font-weight: 300" id="cuitClient">{{item.name}}</span>
+          </td>
+          <td style="text-align: center;background-color:rgb(238, 238, 238);">
+            <span style="font-size:10px;font-weight: 300" id="cuitClient">{{item.quantity}}</span>
+          </td>
+          <td style="text-align: center;background-color:rgb(238, 238, 238);">
+            <span style="font-size:10px;font-weight: 300" id="namePersonal"> {{item.unitPrice}} </span>
+          </td>
+          <td style="text-align: center;background-color:rgb(238, 238, 238);">
+            <span style="font-size:10px;font-weight: 300" id="namePersonal">{{item.bonificacion}}</span>
+          </td>
+          <td style="text-align: center;background-color:rgb(238, 238, 238);">
+            <span style="font-size:10px;font-weight: 300" id="cuitClient">{{item.totalPrice}}</span>
+          </td>
+        </tr>
+      </tbody>
+      {{/each}}
+
+    </table>
+
+    <div style="display: flex; justify-content: space-between; margin-left: 29px; margin-right: 28px;margin-top: 5px;margin-bottom: 8px;">
+      <table cellspacing="0" cellpadding="6" width="253.1">
+        <tbody>
+          <tr style="width:20%;" valign="TOP" colspan="4" height="5">
+            <td style="text-align: center; width:20%;border-bottom: 1px solid black;">
+              <span style="font-size:10px;font-weight: 700" id="namePersonal"> DESCRIPCIÓN </span>
+            </td>
+            <td style="text-align: center; width:20%;border-bottom: 1px solid black;">
+              <span style="font-size:10px;font-weight: 700" id="cuitClient">IMP TOTAL</span>
+            </td>
+          </tr>
+          <tr style="width:50%;" valign="TOP" colspan="4" height="5">
+            <td style="text-align: center; width:5%;">
+              <span style="font-size:10px;font-weight: 300" id="namePersonal"> Importe neto gravado </span>
+            </td>
+            <td style="text-align: center; width:5%">
+              <span style="font-size:10px;font-weight: 300" id="cuitClient">{{ImpNeto}}</span>
+            </td>
+          </tr>
+          <tr style="width:50%" valign="TOP" colspan="4" height="20">
+            <td style="text-align: center; width:5%;">
+              <span style="font-size:10px;font-weight: 300" id="namePersonal"> IVA 21% </span>
+            </td>
+            <td style="text-align: center; width:5%">
+              <span style="font-size:10px;font-weight: 300" id="cuitClient">{{ImpIVA}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table border="0" cellspacing="0" cellpadding="6" width="250">
+        <tbody>
+          <tr style="width:50%;border: 0px;" valign="TOP" colspan="4" height="20">
+            <td style="text-align: center">
+              <span style="font-size:15px;font-weight: 500" id="namePersonal"> Subtotal: $ </span>
+            </td>
+            <td style="text-align: center;">
+              <span style="font-size:15px;font-weight: 300" id="cuitClient">{{subtotal}}</span>
+            </td>
+          </tr>
+          <tr style="width:50%;border: 0px;" valign="TOP" colspan="4" height="20">
+            <td style="text-align: center">
+              <span style="font-size:15px;font-weight: 500" id="namePersonal"> Bonificación: % </span>
+            </td>
+            <td style="text-align: center;">
+              <span style="font-size:15px;font-weight: 300" id="cuitClient">{{bonificacion}}</span>
+            </td>
+          </tr>
+          <tr style="width:50%;border: 0px;" valign="TOP" colspan="4" height="20">
+            <td style="text-align: center">
+              <span style="font-size:15px;font-weight: 500" id="namePersonal"> Total sin Iva: $ </span>
+            </td>
+            <td style="text-align: center;">
+              <span style="font-size:15px;font-weight: 300" id="cuitClient">{{ImpNeto}}</span>
+            </td>
+          </tr>
+          <tr style="width:50%;border: 0px;" valign="TOP" colspan="4" height="20">
+            <td style="text-align: center;border-bottom: 1px solid black;">
+              <span style="font-size:15px;font-weight: 600" id="namePersonal"> Importe total: $ </span>
+            </td>
+            <td style="text-align: center;border-bottom: 1px solid black;">
+              <span style="font-size:15px;font-weight: 300" id="cuitClient">{{ImpTotal}}</span>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+    <table border="1" cellspacing="0" cellpadding="6" width="720">
+      <tr>
+        <td style="width: 10px;;right:0px;border-right:0;border-top:0;border-bottom:0;border-left:0"><img src="{{img2}}"
+            width="100px" height="100px" /></td>
+        <td style="left:-10px;border-left:0;border-right:0;border-top:0;border-bottom:0"><img src="{{img4}}"
+            width="150px" height="150px" /></td>
+        <td
+          style="text-align:center;border-left:0;font-size:15px;font-weight:700;border-top:0;border-bottom:0;border-right:0;">
+          {{EmisionTipo}} : {{CodAutorizacion}}</td>
+      </tr>
+    </table>
+    <table border="1" cellspacing="0" cellpadding="6" width="720">
+      <tr>
+        <td style="background-color:rgb(233, 233, 233);font-size:10px;text-align:center;border-top:0">{{Observaciones}}
+        </td>
+      </tr>
+    </table>
+  </center>
+
+</body>
+
+</html>

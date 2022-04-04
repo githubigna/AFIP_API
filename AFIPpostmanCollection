@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "17eb5a07-9669-492e-aad0-69d4cc8ae469",
+		"name": "AFIP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Factura AFIP",
+			"protocolProfileBehavior": {
+				"strictSSL": false,
+				"disableUrlEncoding": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.am5vZWZqaHU5M3Zqcjk4ajgwZmo4MjM.MXv1zKY4wIsdYvF83u_Gz4_sh_Q6UlHUAJsoXUr1TBA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"data\":{\r\n    \"Item\"                  :\"Woki mesa ya que se yo afasdgasdfgadfg\" , \r\n    \"Descripcion\"                  :\"Esto es una descripción ! fasjdfoasdfgsdfgsdfgsdfgsdfgsdfgsfdg\" , \r\n    \"PtoVta\" \t\t\t\t\t: 1, \r\n\t\"DocTipo\"\t\t\t\t\t: 80,\r\n\t\"DocNro\"\t\t\t\t\t: 20002307554,\r\n\t\"ImpTotal\"\t\t\t\t: 121,\r\n\t\"ImpNeto\"\t\t\t\t\t: 100,\r\n\t\"ImpIVA\"\t\t\t\t\t: 21,\r\n\t\"FchServDesde\"\t\t\t: 20211011,\r\n\t\"FchServHasta\"\t\t\t: 20211111,\r\n    \"FchVtoPago\" \t: 20221112,\r\n\t\"MonId\" \t\t\t\t\t: \"PES\", \r\n    \"MonCotiz\"\t\t\t\t: 1, \r\n\t\"Iva\" : [{\r\n\t\t\"Id\"\t\t\t\t\t: 5,\r\n\t\t\"BaseImp\"\t\t\t\t: 100,\r\n\t\t\"Importe\"\t\t\t\t: 21 \r\n\t}]  \r\n},\r\n\t\"app\":\"Flowy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/afip/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"afip",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get PDF by CBTE",
+			"protocolProfileBehavior": {
+				"strictSSL": false,
+				"disableUrlEncoding": true,
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.am5vZWZqaHU5M3Zqcjk4ajgwZmo4MjM.MXv1zKY4wIsdYvF83u_Gz4_sh_Q6UlHUAJsoXUr1TBA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"data\":{\r\n  \"PtoVta\" \t\t\t\t\t: 1, \r\n\t\"DocTipo\"\t\t\t\t\t: 80,\r\n\t\"DocNro\"\t\t\t\t\t: 20002307554,\r\n\t\"ImpTotal\"\t\t\t\t: 121,\r\n\t\"ImpNeto\"\t\t\t\t\t: 100,\r\n\t\"ImpIVA\"\t\t\t\t\t: 21,\r\n\t\"FchServDesde\"\t\t\t: 20211011,\r\n\t\"FchServHasta\"\t\t\t: 20211111,\r\n    \"FchVtoPago\" \t: 20221112,\r\n\t\"MonId\" \t\t\t\t\t: \"PES\", \r\n    \"MonCotiz\"\t\t\t\t: 1, \r\n\t\"Iva\" : [{\r\n\t\t\"Id\"\t\t\t\t\t: 5,\r\n\t\t\"BaseImp\"\t\t\t\t: 100,\r\n\t\t\"Importe\"\t\t\t\t: 21 \r\n\t}]  \r\n},\r\n\t\"app\":\"flowy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/afip/v1/PDF/656",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"afip",
+						"v1",
+						"PDF",
+						"656"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get bills by userName",
+			"protocolProfileBehavior": {
+				"strictSSL": false,
+				"disableUrlEncoding": true,
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.am5vZWZqaHU5M3Zqcjk4ajgwZmo4MjM.MXv1zKY4wIsdYvF83u_Gz4_sh_Q6UlHUAJsoXUr1TBA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/afip/v1/retrieve/bills",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"afip",
+						"v1",
+						"retrieve",
+						"bills"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Last Factura",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.am5vZWZqaHU5M3Zqcjk4ajgwZmo4MjM.MXv1zKY4wIsdYvF83u_Gz4_sh_Q6UlHUAJsoXUr1TBA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/afip/v1/getLastVoucher",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"afip",
+						"v1",
+						"getLastVoucher"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "9fuj901dsn239hfg24jg2804gj9134f9'3gj8935jg89104u3hf9k'1d8305yuhdh732y1d893en1803j81fg3",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "apipublic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "apipublic",
+						"value": "9fuj901dsn239hfg24jg2804gj9134f9'3gj8935jg89104u3hf9k'1d8305yuhdh732y1d893en1803j81fg3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"Woki\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/afip/v1/auth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"afip",
+						"v1",
+						"auth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Factura por numero",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.am5vZWZqaHU5M3Zqcjk4ajgwZmo4MjM.MXv1zKY4wIsdYvF83u_Gz4_sh_Q6UlHUAJsoXUr1TBA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/afip/v1/420",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"afip",
+						"v1",
+						"420"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
